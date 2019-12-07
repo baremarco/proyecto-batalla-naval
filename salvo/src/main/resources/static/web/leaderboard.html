@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="./styles/games.css">
+  <title>Leaderboard</title>
+</head>
+<body>
+
+<div class="contenedor">
+  <h1>Leaderboard</h1>
+
+  <div class="centro">
+    
+    <div id="one" class="columna">
+      <ol>
+    
+      </ol>  
+    </div>
+
+    <div id="dos" class="columna">
+      
+      <h3 id="logged" class="avisos"></h3>
+      <form name="login-form" id="login-form">
+        <fieldset>
+          <legend>logging in</legend>
+          <input type="email" name="name" id="name" placeholder="Username" required>
+          <input type="password" name="password" id="password" placeholder="Password" required>
+          <button id="login-button">login</button>
+          <button id="signup-button">sign up</button>
+        </fieldset>
+        <h3 id="postresult" class="avisos"></h3>
+      </form>
+
+      <form name="logout-form" id="logout-form">
+          <fieldset>
+            <legend>logging out</legend>
+            <button id="logout-button">logout</button>
+          </fieldset>
+        </form>
+
+        <form name="New Game" id="new-form">
+          <fieldset>
+            <legend>New Game</legend>
+            <a id="create-button" class="button" >New Game</a>
+          </fieldset>
+        </form>
+
+    </div> <!-- id="dos" class="columna" -->
+
+  </div>
+  
+  <div id="resultados">
+    <table>
+      <caption>Results</caption>
+    </table>
+  </div><!--id="resultados"-->
+
+</div> <!--class="contenedor"-->  
+<!--A partir de aqui se cargaran los scrips-->
+<!--Primero cargamos jquery-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!--Cargamos nuestros .js-->
+<script src="./scripts/scripLeaderboard.js"></script>
+
+</body>
+</html>

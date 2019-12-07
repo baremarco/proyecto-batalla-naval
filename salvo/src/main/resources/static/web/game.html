@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="./styles/games.css">
+  <!-- SCRIPT PARA OBTENER LOS ICONOS DE FONTAWESOME -->
+  <script src="https://kit.fontawesome.com/02a72ffea8.js" crossorigin="anonymous"></script>
+  <title>Ship Locations!</title>
+</head>
+<body>
+  
+  <div class="contenedor">
+    
+    <h1 id="playerInfo"></h1>
+    
+    <h2>Leyenda</h2>
+    <div>
+      <div class="leyenda ship-submarine">Submarine</div>
+      <div class="leyenda ship-battleship">Battleship</div>
+      <div class="leyenda ship-destroyer">Destroyer</div>
+      <div class="leyenda ship-carrier">Carrier</div>
+      <div class="leyenda ship-patrol-boat">Patrol Boat</div>
+      <div class="leyenda salvo">Salvos</div> 
+    </div>
+    <div id="ships">
+      <table>
+        <caption>Ships</caption>    
+      </table>
+    </div><!--id="table"-->
+    
+    <div id="salvoes">
+      <table>
+        <caption>Salvoes</caption>
+      </table>
+    </div><!--id="table"-->
+    
+    <div id="buttons">
+      <button id="goBack">
+        <i class="fas fa-arrow-circle-left"></i> Volver
+      </button>
+    </div>
+  </div>
+  <small id="alert-text"></small>
+  
+  
+</div>
+
+<!--A partir de aqui se cargaran los scrips-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!--Primero cargamos jquery-->
+<!--Cargamos nuestros .js-->
+
+<script src="./scripts/game.js"></script>
+
+</body>
+</html>

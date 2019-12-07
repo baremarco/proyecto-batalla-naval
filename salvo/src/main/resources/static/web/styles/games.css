@@ -1,0 +1,218 @@
+*{
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+.contenedor{
+  background: #39434E;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+div.contenedor > div:first-of-type{
+  display: flex;
+  justify-content: space-around;
+}
+div.contenedor > div:first-of-type div{
+  padding: 5px;
+}
+
+.ship-piece{
+  background-color: #0E53A7;
+}
+.ship-submarine{
+  background-color: #f7be16;
+}
+.ship-battleship{
+  background-color: #fab696;
+}
+.ship-destroyer{
+  background-color: #216583;
+}
+.ship-carrier{
+  background-color: #293462;
+}
+.ship-patrol-boat{
+  background-color: #0c9463;
+}
+
+.leyenda{
+  color: white;
+}
+
+.ship-hited{
+  background-color: #ff5c00;
+}
+
+.salvo{
+  background-color: #ff2600;
+}
+
+.avisos{
+  color:#ff5c00;
+  border: dashed #c0c0c0 1px;
+  text-transform: capitalize;
+}
+
+li.game-list{
+  width: 100%;
+}
+
+h1{
+  text-align: center;
+  color: #ff5c00;
+  background-color: #0E53A7;
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+h2{
+  color: #ff5c00 ;
+  background-color: #0E53A7;
+  padding: 5px;
+  margin-bottom: 10px;
+
+}
+
+td, th {
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid #ffffff;
+    text-align: center;
+  }
+
+th {
+    background: #6899D3;
+    border-color: white;
+  }
+
+caption{
+  color: #ff5c00;
+  background-color: #0E53A7;
+  font-size: 2em;
+} 
+
+#ships, #salvoes{
+  float: left;
+  width: 46%;
+  margin: 1%;
+  padding: 1%;
+}
+
+.contenedor::after{
+  display: block;
+  content: "";
+  clear: both;
+}
+
+td{
+  color:#ffffff;
+  font-weight: bold;
+}
+
+div#resultados {
+  padding: 1%;
+  margin: 1%
+
+}
+
+div#resultados td, th{
+  width: 6rem;
+}
+
+div#resultados table{
+  margin: auto;
+}
+
+ div#one{
+  background-color: #0E53A7;
+  margin: 0 auto;
+} 
+
+div#one ol {
+  color: white;
+  text-align: center;
+  line-height: 25px;
+  border: 1px black solid;
+}
+div#one ol li {
+  border-bottom: dashed 1px black;
+  position: relative;
+  text-align: left;
+}
+div#one ol li i.player-email{
+  display: inline-block;
+}
+
+.button{
+  background-color: #ff5c00;
+  color: white;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-radius: 4px;
+  
+  -webkit-box-shadow: inset 0px 0px 2px 2px rgba(161,69,15,1);
+}
+div#one ol li a{
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+div#one ol li a:hover{
+  cursor: pointer;
+  background-color: #a1450f;
+}
+div#one ol li:last-child{
+  border-bottom: none;
+}
+
+div#dos form#new-form fieldset a:hover{
+  cursor: pointer;
+  background-color: #a1450f;
+}
+
+div.centro{
+  overflow: hidden;
+  margin: 20px auto;
+}
+div.centro .columna{
+  float: left;
+  width: 50%;
+  /* margin: 5%; */
+  padding: 2%;
+
+}
+
+div#dos form fieldset input{
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 5px;
+  padding: 2px;
+}
+
+.columna form fieldset{
+  color: #ff5c00;
+  text-transform: capitalize;
+  margin-bottom: 10px;
+}
+
+#buttons{
+  width: 500px;
+  margin: 20px;
+  text-align: left;
+}
+#buttons button{
+  background-color: #084F74;
+  color: #fff;
+  padding: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+#buttons button:hover{
+  background-color: rgb(39, 131, 180);
+}
+
+
+  
