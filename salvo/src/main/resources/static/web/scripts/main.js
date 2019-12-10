@@ -254,11 +254,6 @@ $('#sendShips').click(function(){
     var carrierLocation = getShipLocation('#carrier');
     var submarineLocation = getShipLocation('#submarine');
     var destroyerLocation = getShipLocation('#destroyer');
-    console.log(battleshipLocation);
-    console.log(patrol_boatLocation);
-    console.log(carrierLocation);
-    console.log(submarineLocation);
-    console.log(destroyerLocation);
     sendShipsPost(battleshipLocation, patrol_boatLocation, carrierLocation, submarineLocation, destroyerLocation);
 
 });
@@ -323,7 +318,7 @@ function sendShipsPost(battleshipLocation, patrol_boatLocation, carrierLocation,
       contentType: "application/json"
     })
     .done(function (response, status, jqXHR) {
-      alert( "Ship added: " + response + " " + status );
+      alert( "Nice, Ships added");
       goBack();
     })
     .fail(function (jqXHR, status, httpError) {

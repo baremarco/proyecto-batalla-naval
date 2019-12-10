@@ -6,30 +6,55 @@ $(function () {
   .fail(function (xhr, status, error) {
       alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
   });
-renderTable(10,10,'div#ships table');
-renderTable(10,10,'div#salvoes table');
+renderTable(10,10,'div#ships table','shipsGrid');
+renderTable(10,10,'div#salvoes table','salvoesGrid');
 
 
 
 });//fin de la funcion jquery
 //--------------------Eventos----------------------------------------------
+
+//EVENTO AL PRESIONAR BOTON VOLVER 
 $("#goBack").click( function(){
   goBack();
 });
 
+//EVENTO AL PRESIONAR BOTON ENVIAR SALVOS
+$('#sendSalvoes').click(function(){
+  var classSelector = $('.firstShot'); 
+  sendSalvoes(getSalvoesArray(classSelector));
+  location.reload();
+});
+
+//EVENTO AL PRESIONAR GRID DE LOS SALVOS
+$("#salvoes").on("click","td",(function(e){
+  casillaId = e.target.id;
+  let casillaClickeada = $('#'+casillaId);
+  if(isPossibleToShot(5)){
+    casillaClickeada.toggleClass("firstShot");
+  }else{
+    casillaClickeada.removeClass("firstShot");
+  }
+  
+}));
 
 
+//casillasTomadas.id = salvoesGrid-C5
 
 //--------------------Funtions----------------------------------------------
+function isPossibleToShot(possiblesShots){
+  casillasTomadas = $('.firstShot')
+  return casillasTomadas.length >= possiblesShots ? false : true;
+}
 /**
- * 
+ * @param {*} id unique id name for each td element 
  * @param {*} rows Number of rows 
  * @param {*} cols Number of cols
- * @param {*} cols String with de css location of the element
+ * @param {*} tableLocation String with de css location of the element
  */
-function renderTable(rows,cols,tableLocation){
+function renderTable(rows,cols,tableLocation,id){
   renderHeader(cols,tableLocation);
-  renderRows(rows,cols,tableLocation);
+  renderRows(rows,cols,tableLocation,id);
 }
 
 /**
@@ -55,12 +80,12 @@ function getHeader(cols) {
   return header + "</tr>";
 }
 
-function getRows(rows,cols) {
+function getRows(rows,cols,id) {
   let filas;
   for(i = 0; i<rows;i++){
     filas += `<tr><th>${(String.fromCharCode(i+65))}</th>`;
     for(j = 0;j<cols;j++){
-      filas +=`<td class="${String.fromCharCode(i+65)+(j+1)}"></td>`; 
+      filas +=`<td id="${id}-${String.fromCharCode(i+65)+(j+1)}"></td>`; 
     }
     filas += "</tr>";
   }
@@ -72,8 +97,8 @@ function renderHeader(cols,tableLocation) {
   $(tableLocation).append(html);
 }
 
-function renderRows(rows,cols,tableLocation) {
-  let html = getRows(rows,cols);
+function renderRows(rows,cols,tableLocation,id) {
+  let html = getRows(rows,cols,id);
   $(tableLocation).append(html);
 }
 function renderShips(json) {
@@ -81,52 +106,42 @@ function renderShips(json) {
     switch (ship.type) {
       case "battleship":
         ship.locations.forEach(location => {
-          $('#ships .'+location).addClass('ship-battleship');
+          $('#ships #shipsGrid-'+location).addClass('ship-battleship');
         });
       break;
 
       case "patrol boat":
         ship.locations.forEach(location => {
-          $('#ships .'+location).addClass('ship-patrol-boat');
+          $('#ships #shipsGrid-'+location).addClass('ship-patrol-boat');
         });
       break;
 
       case "carrier":
         ship.locations.forEach(location => {
-          $('#ships .'+location).addClass('ship-carrier');
+          $('#ships #shipsGrid-'+location).addClass('ship-carrier');
         });
       break;
 
       case "submarine":
         ship.locations.forEach(location => {
-          $('#ships .'+location).addClass('ship-submarine');
+          $('#ships #shipsGrid-'+location).addClass('ship-submarine');
         });
       break;
 
       case "destroyer":
         ship.locations.forEach(location => {
-          $('#ships .'+location).addClass('ship-destroyer');
+          $('#ships #shipsGrid-'+location).addClass('ship-destroyer');
         });
       break;
 
       
       default:
           ship.locations.forEach(location => {
-            $('#ships .'+location).addClass('ship-piece');
+            $('#ships #shipsGrid-'+location).addClass('ship-piece');
           });
       break;
     } 
 
-    /* if (ship.type == "submarine") {
-      ship.locations.forEach(location => {
-        $('#ships .'+location).addClass('ship-submarine');
-      });  
-    }else if(){
-
-    }
-    ship.locations.forEach(location => {
-      $('#ships .'+location).addClass('ship-piece');
-    }); */
   });  
 }
 
@@ -137,8 +152,8 @@ function renderSalvoes(json) {
         player[playerKey].forEach((turno) => {
           Object.keys(turno).forEach(turnoKey => {
             turno[turnoKey].forEach(location =>{
-              $('#salvoes .'+location).addClass('salvo');
-              $('#salvoes .'+location).text(turnoKey);
+              $('#salvoes #salvoesGrid-'+location).addClass('salvo');
+              $('#salvoes #salvoesGrid-'+location).text(turnoKey);
             })
           })
         })
@@ -154,11 +169,16 @@ function renderHitedShips(json) {
         player[playerKey].forEach((turno) => {
           Object.keys(turno).forEach(turnoKey => {
             turno[turnoKey].forEach(location =>{
-              if($('#ships .'+location).hasClass('ship-piece')){
-                $('#ships .'+location).addClass('ship-hited');
-                $('#ships .'+location).text(turnoKey);
-              }else if($('#ships .'+location).hasClass('ship-hited')){
-                
+              
+              if( $('#ships #shipsGrid-'+location).hasClass('ship-piece')       || 
+                  $('#ships #shipsGrid-'+location).hasClass('ship-battleship')  || 
+                  $('#ships #shipsGrid-'+location).hasClass('ship-patrol-boat') || 
+                  $('#ships #shipsGrid-'+location).hasClass('ship-carrier')     ||    
+                  $('#ships #shipsGrid-'+location).hasClass('ship-submarine')   || 
+                  $('#ships #shipsGrid-'+location).hasClass('ship-destroyer'))
+              {
+                $('#ships #shipsGrid-'+location).addClass('ship-hited');
+                $('#ships #shipsGrid-'+location).text(turnoKey);
               }
               else{
                 $('#ships .'+location).addClass('salvo');
@@ -184,19 +204,47 @@ function renderPlayerInfo(data) {
 }
 
 function consumeJson(json) {
-  console.log(JSON.stringify(json, null, 2));
+  // console.log(JSON.stringify(json, null, 2));
   if(json.gamePlayers.length < 2){
     playerInfo = [json.gamePlayers[0].player.email];
     $('#playerInfo').text(playerInfo[0]+ '(you) vs Waiting for another player ...');
     renderShips(json);
-    // renderSalvoes(json);
-    // renderHitedShips(json);
+    renderSalvoes(json);
+    renderHitedShips(json);
   }else{
     renderPlayerInfo(json);
     renderShips(json);
     renderSalvoes(json);
     renderHitedShips(json);
   }
+}
+function getSalvoesArray(classSelector){
+  var salvoesArray = [];
+  classSelector.each(function(){
+    let id = this.id;
+    if(id.length < 15 ){
+      salvoesArray.push(""+id.substr(-2,2)); 
+    }else{
+      salvoesArray.push(""+id.substr(-3,3)); 
+    }
+  })
+  return salvoesArray;
+}
+
+function sendSalvoes(salvoesArray){
+  
+  $.post({
+    url: "/api/games/players/"+ getParamObj(window.location.search).gp +"/salvos", 
+    data: JSON.stringify(getSalvoesArray($('.firstShot'))),
+    dataType: "text",
+    contentType: "application/json"
+  })
+  .done(function (response, status, jqXHR) {
+    alert( "Good, Shoots added");
+  })
+  .fail(function (jqXHR, status, httpError) {
+    alert("Sorry, Failed to add Shoots" );
+  })
 }
 
 function pruebaPostShips(){
